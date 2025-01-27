@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Letter Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Offer Letter Generator</h1>
+        <form method="POST" class="card p-4 bg-white shadow-sm">
+            <div class="mb-3">
+                <label for="serial_number" class="form-label">Serial Number</label>
+                <input type="text" id="serial_number" name="serial_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="father_name" class="form-label">Father's Name</label>
+                <input type="text" id="father_name" name="father_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile</label>
+                <input type="text" id="mobile" name="mobile" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="aadhar" class="form-label">Aadhar</label>
+                <input type="text" id="aadhar" name="aadhar" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="pan" class="form-label">PAN</label>
+                <input type="text" id="pan" name="pan" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <input type="text" id="role" name="role" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="joda" class="form-label">Offer letter Date</label>
+                <input type="date" id="joda" name="joda" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="DATE" class="form-label">Joining Date</label>
+                <input type="date" id="DATE" name="DATE" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="manager" class="form-label">Manager</label>
+                <input type="text" id="manager" name="manager" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="oltype" class="form-label">OL TYPE</label>
+                <select id="oltype" name="oltype" class="form-select" required>
+                    <option value="BDA">BDA</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Graphic Designer/Human Resource">Graphic Designer /Human Resource</option>
+                    <option value="Telecaller/Catalog">Telecaller/Catalog</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Offer Letter</button>
+        </form>
+    </div>
+</body>
+</html>
