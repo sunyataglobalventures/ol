@@ -10,6 +10,13 @@ from firebase_admin import credentials, firestore
 
 app = Flask(__name__)
 
+
+# # Set the Firebase service account key
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
+
+# # Initialize Firestore client
+# db = firestore.Client()
+
 # Step 1: Load Firebase Credentials from Environment Variables
 firebase_key_base64 = os.getenv("FIREBASE_KEY")  # Load from environment
 if not firebase_key_base64:
@@ -22,7 +29,6 @@ firebase_admin.initialize_app(cred)
 
 # Step 3: Initialize Firestore
 db = firestore.client()
-
 
 # Helper function to replace placeholders in the document
 def replace_text_in_run(run, key, value):
@@ -44,8 +50,10 @@ def replace_placeholders(doc, placeholders):
                         for key, value in placeholders.items():
                             replace_text_in_run(run, key, value)
 
-def get_template_path(oltype):
-    """Select the template path based on the offer letter type (oltype)."""
+def get_template_path(oltype, internship):
+    """Select the template path based on the offer letter type (oltype) or internship."""
+    if internship:
+        return "NEW_INTERN.docx"
     templates = {
         "BDA": "NEW_JOB-5LPA.docx",
         "Senior": "NEW_JOB-7LPA.docx",
@@ -70,7 +78,9 @@ def create_offer_letter(data, template_path, output_folder, unique_id):
         "AADHAR": data.get("aadhar", "N/A"),
         "PAN": data.get("pan", "N/A"),
         "<ROLE>": data.get("role", "N/A"),
-        "<MANAGER>": data.get("manager", "N/A")
+        "<MANAGER>": data.get("manager", "N/A"),
+        "ITFP": data.get("type", "N/A"),  # Internship type (Full-time/Part-time)
+        "STIPEND": data.get("stipend", "N/A"),  # Stipend
     }
     
     # Replace placeholders in the document
@@ -81,7 +91,8 @@ def create_offer_letter(data, template_path, output_folder, unique_id):
         os.makedirs(output_folder)
     
     # Save the offer letter
-    file_name = f"JOB_HETERIZE_INFOTECH_{data.get('serial_number', 'N/A')}_{data.get('name', 'N/A')}.docx"
+    file_label = "INTERNSHIP" if data.get("internship") == "on" else "JOB"
+    file_name = f"{file_label}_HETERIZE_INFOTECH_{data.get('serial_number', 'N/A')}_{data.get('name', 'N/A')}.docx"
     file_path = os.path.join(output_folder, file_name)
     doc.save(file_path)
     
@@ -89,7 +100,7 @@ def create_offer_letter(data, template_path, output_folder, unique_id):
 
 def save_to_firestore(data):
     """Save the data into Firestore."""
-    collection_name = "OFFER LETTER JOB"
+    collection_name = "OFFER LETTER"
     
     # Add a timestamp
     data["timestamp"] = datetime.utcnow().isoformat()
@@ -108,9 +119,12 @@ def index():
         # Extract form data
         data = request.form.to_dict()
         
-        # Determine the template based on the selected oltype
+        # Determine if internship checkbox is checked
+        internship = data.get("internship") == "on"
+        
+        # Determine the template based on the selected oltype or internship
         oltype = data.get("oltype")
-        template_path = get_template_path(oltype)
+        template_path = get_template_path(oltype, internship)
         if not template_path:
             return "Invalid offer letter type selected.", 400
         
