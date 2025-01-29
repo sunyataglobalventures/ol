@@ -63,8 +63,36 @@
                     <option value="Telecaller/Catalog">Telecaller/Catalog</option>
                 </select>
             </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="internship" name="internship" onchange="toggleInternshipFields()">
+                <label for="internship" class="form-check-label">Internship</label>
+            </div>
+            <div id="internshipFields" style="display: none;">
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <select id="type" name="type" class="form-select">
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="stipend" class="form-label">Stipend</label>
+                    <input type="text" id="stipend" name="stipend" class="form-control">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Generate Offer Letter</button>
         </form>
     </div>
+    <script>
+        function toggleInternshipFields() {
+            const internshipCheckbox = document.getElementById("internship");
+            const internshipFields = document.getElementById("internshipFields");
+            if (internshipCheckbox.checked) {
+                internshipFields.style.display = "block";
+            } else {
+                internshipFields.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
