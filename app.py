@@ -55,7 +55,7 @@ def get_template_path(oltype, internship):
     if internship:
         return "NEW_INTERN.docx"
     templates = {
-        "BDA": "NEW_JOB-5LPA.docx",
+        "BDA": "NEW_JOB-3LPA.docx",
         "Senior": "NEW_JOB-7LPA.docx",
         "Graphic Designer/Human Resource": "NEW_JOB-2.2LPA.docx",
         "Telecaller/Catalog": "NEW_JOB-1.8LPA.docx",
