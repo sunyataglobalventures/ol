@@ -78,6 +78,8 @@ def create_offer_letter(data, template_path, output_folder, unique_id):
         "AADHAR": data.get("aadhar", "N/A"),
         "PAN": data.get("pan", "N/A"),
         "<ROLE>": data.get("role", "N/A"),
+        "<SLR>": data.get("orSalary", "N/A"),
+        "<HLDSLR>": data.get("holdSalary", "N/A"),
         "<MANAGER>": data.get("manager", "N/A"),
         "ITFP": data.get("type", "N/A"),  # Internship type (Full-time/Part-time)
         "STIPEND": data.get("stipend", "N/A"),  # Stipend
